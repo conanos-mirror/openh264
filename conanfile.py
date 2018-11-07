@@ -17,12 +17,13 @@ class OpenH264Conan(ConanFile):
 
     settings = "os", "arch", "compiler", "build_type"
     options = {"shared": [True, False]}
-    default_options = "shared=False"
+    default_options = "shared=True"
     source_subfolder = "sources"
 
     def source(self):
-        source_url = "https://github.com/cisco/openh264"
-        tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
+        #source_url = "https://github.com/cisco/openh264"
+        #tools.get("{0}/archive/v{1}.tar.gz".format(source_url, self.version))
+        tools.get("http://172.16.64.65:8081/artifactory/gstreamer/{name}-{version}.tar.gz".format(name=self.name,version=self.version))
         extracted_dir = self.name + "-" + self.version
         os.rename(extracted_dir, self.source_subfolder)
 
