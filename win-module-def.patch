@@ -1,0 +1,22 @@
+diff -Nur openh264-1.8.0/meson.build openh264-1.8.0-win-module-def/meson.build
+--- openh264-1.8.0/meson.build	2018-06-26 18:36:43.000000000 -0700
++++ openh264-1.8.0-win-module-def/meson.build	2018-12-23 21:13:05.048487412 -0800
+@@ -106,11 +106,18 @@
+   libdecoder.extract_all_objects()
+ ]
+ 
++if system == 'windows'
++  link_args = ['/DEF:' + meson.current_source_dir() + '/openh264.def']
++else
++  link_args = []
++endif
++
+ libopenh264_shared = shared_library('openh264',
+   objects: all_objects,
+   install: true,
+   soversion: major_version,
+   version: meson.project_version(),
++  link_args: link_args,
+   dependencies: deps)
+ 
+ libopenh264_static = static_library('openh264',
